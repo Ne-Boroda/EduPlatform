@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35514.174 d17.12
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EduPlatform", "EduPlatform.csproj", "{9AF44D6B-307B-4205-9244-6BEAB307ED8D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAL_Education", "..\DAL_Education\DAL_Education.csproj", "{C9FDD823-6577-496B-99C0-13D3CF6F30F2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BLL_Education", "..\BLL_Education\BLL_Education.csproj", "{6B4E2D55-9B08-416A-A074-4F24260E26D9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9AF44D6B-307B-4205-9244-6BEAB307ED8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9AF44D6B-307B-4205-9244-6BEAB307ED8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9AF44D6B-307B-4205-9244-6BEAB307ED8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9AF44D6B-307B-4205-9244-6BEAB307ED8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9FDD823-6577-496B-99C0-13D3CF6F30F2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9FDD823-6577-496B-99C0-13D3CF6F30F2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9FDD823-6577-496B-99C0-13D3CF6F30F2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9FDD823-6577-496B-99C0-13D3CF6F30F2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6B4E2D55-9B08-416A-A074-4F24260E26D9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6B4E2D55-9B08-416A-A074-4F24260E26D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6B4E2D55-9B08-416A-A074-4F24260E26D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6B4E2D55-9B08-416A-A074-4F24260E26D9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

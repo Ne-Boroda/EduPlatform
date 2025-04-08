@@ -7,12 +7,151 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EduPlatform.styles.css" asp-append-version="true" />
+    <link rel="icon" href="~/image-removebg-preview.ico" type="image/x-icon" />
+    <style>
+        :root {
+            --bs-dark: #121212;
+            --bs-gold: #dcae50;
+            --bs-gold-dark: #D4AF37;
+            --bs-gold-darker: #B8860B;
+        }
+
+        body {
+            background-color: var(--bs-dark);
+            color: #f8f9fa;
+        }
+
+        .navbar {
+            background-color: var(--bs-dark) !important;
+            border-bottom: 1px solid var(--bs-gold-dark) !important;
+        }
+
+        .navbar-brand, .nav-link {
+            color: var(--bs-gold) !important;
+        }
+
+            .nav-link:hover {
+                color: var(--bs-gold-dark) !important;
+            }
+
+        /* Кнопка Регистрация (с обводкой) */
+        .btn-outline-primary {
+            color: var(--bs-gold);
+            border-color: var(--bs-gold);
+            background-color: transparent;
+        }
+
+            .btn-outline-primary:hover,
+            .btn-outline-primary:focus,
+            .btn-outline-primary:active {
+                background-color: var(--bs-gold) !important;
+                border-color: var(--bs-gold) !important;
+                color: var(--bs-dark) !important;
+                box-shadow: none !important;
+            }
+
+        /* Кнопка Войти (залитая) */
+        .btn-primary {
+            background-color: var(--bs-gold) !important;
+            border-color: var(--bs-gold) !important;
+            color: var(--bs-dark) !important;
+        }
+
+            .btn-primary:hover,
+            .btn-primary:focus,
+            .btn-primary:active {
+                background-color: var(--bs-gold-darker) !important;
+                border-color: var(--bs-gold-darker) !important;
+                color: var(--bs-dark) !important;
+                box-shadow: none !important;
+            }
+
+        .modal-content {
+            background-color: var(--bs-dark);
+            border: 1px solid var(--bs-gold-dark);
+        }
+
+        .modal-header {
+            border-bottom: 1px solid var(--bs-gold-dark);
+        }
+
+        .modal-title {
+            color: var(--bs-gold);
+        }
+
+        .btn-close {
+            filter: invert(1);
+        }
+
+        .form-control, .form-control:focus {
+            background-color: #1e1e1e;
+            border-color: var(--bs-gold-dark);
+            color: white;
+        }
+
+        .form-label {
+            color: var(--bs-gold);
+        }
+
+        footer {
+            background-color: var(--bs-dark) !important;
+            border-top: 1px solid var(--bs-gold-dark) !important;
+        }
+
+            footer a {
+                color: var(--bs-gold) !important;
+            }
+
+        /* Переопределение стандартных цветов Bootstrap */
+        .btn-check:focus + .btn, .btn:focus {
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+        }
+
+        .navbar-brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-img {
+            height: 70px;
+            width: auto;
+        }
+
+        .form-control,
+        .form-control:focus,
+        .form-control:active,
+        .form-control:hover {
+            background-color: #1e1e1e !important;
+            border-color: var(--bs-gold-dark) !important;
+            color: #fff !important;
+            box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+        }
+
+            /* Стили для плейсхолдера */
+            .form-control::placeholder {
+                color: #666 !important;
+                opacity: 1;
+            }
+
+            /* Стили для автозаполнения */
+            .form-control:-webkit-autofill,
+            .form-control:-webkit-autofill:hover,
+            .form-control:-webkit-autofill:focus {
+                -webkit-text-fill-color: #fff !important;
+                -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+                transition: background-color 5000s ease-in-out 0s;
+            }
+    </style>
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm border-bottom box-shadow mb-3">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EduPlatform</a>
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <img src="~/images/logo.png" alt="EduPlatform Logo" class="logo-img" />
+                    EduPlatform
+                </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -20,23 +159,88 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Контакты</a>
                         </li>
                     </ul>
+                    <div class="d-flex">
+                        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#registerModal">
+                            Регистрация
+                        </button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+                            Войти
+                        </button>
+                    </div>
                 </div>
             </div>
         </nav>
     </header>
+
+    @model LoginModel
+
+    <!-- Модальное окно входа -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Вход в систему</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Войти</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно регистрации -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Регистрация</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label"></label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="mb-3">
+                            <label asp-for="Password" class="form-label"></label>
+                            <input asp-for="Password" class="form-control" />
+                            <span asp-validation-for="Password" class="text-danger"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
 
-    <footer class="border-top footer text-muted">
+    <footer class="border-top footer">
         <div class="container">
             &copy; 2025 - EduPlatform - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
@@ -44,6 +248,8 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

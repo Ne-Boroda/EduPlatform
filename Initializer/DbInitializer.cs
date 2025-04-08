@@ -17,7 +17,7 @@ namespace EduPlatform.Initializer
             {
                 UserModel admin = new UserModel
                 {
-                    login = login,
+                    email = login,
                     password = password
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, password);

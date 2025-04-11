@@ -166,73 +166,97 @@
                         </li>
                     </ul>
                     <div class="d-flex">
-                        <button type="button" class="btn btn-outline-primary me-2" data-bs-toggle="modal" data-bs-target="#registerModal">
+                        <button type="button" class="btn btn-outline-primary me-2" onclick="loadRegisterModal()">
                             Регистрация
                         </button>
-                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#loginModal">
+
+                        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Регистрация</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Содержимое будет загружено через AJAX -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function loadRegisterModal() {
+                                $.get('@Url.Action("Register", "Account")', function (data) {
+                                    $('#registerModal .modal-body').html(data);
+                                    $('#registerModal').modal('show');
+                                }).fail(function () {
+                                    alert("Ошибка загрузки формы регистрации.");
+                                });
+                            }
+
+                                $(document).on('submit', '#registerForm', function (event) {
+                                event.preventDefault();
+                                $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                                    if (response.success) {
+                                        
+                                        $('#registerModal').modal('hide');
+                                        location.href = '/Student/Index';
+                                    } else {
+                                        
+                                        $('#registerModal .modal-body').html(response);
+                                    }
+                                });
+                            });
+                        </script>
+
+                        <button type="button" class="btn btn-primary" onclick="loadLoginModal()">
                             Войти
                         </button>
+
+                        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Вход в систему</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <!-- Ajax-запрос -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <script>
+                            function loadLoginModal() {
+                                $.get('@Url.Action("Login", "Account")', function (data) {
+                                    $('#loginModal .modal-body').html(data);
+                                    $('#loginModal').modal('show');
+                                }).fail(function () {
+                                    alert("Ошибка загрузки формы входа.");
+                                });
+                            }
+
+                                $(document).on('submit', '#loginForm', function (event) {
+                                event.preventDefault();
+                                $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                                    if (response.success) {
+
+                                        $('#loginModal').modal('hide');
+                                        location.href = '/Student/Index';
+                                    } else {
+
+                                        $('#loginModal .modal-body').html(response);
+                                    }
+                                });
+                            });
+                        </script>
+
                     </div>
                 </div>
             </div>
         </nav>
     </header>
-
-    @model LoginModel
-
-    <!-- Модальное окно входа -->
-    <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Вход в систему</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form id="loginForm" asp-controller="Account" asp-action="Login" method="post">
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Password" class="form-label"></label>
-                            <input asp-for="Password" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Войти</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Модальное окно регистрации -->
-    <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Регистрация</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="mb-3">
-                            <label asp-for="Email" class="form-label"></label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="mb-3">
-                            <label asp-for="Password" class="form-label"></label>
-                            <input asp-for="Password" class="form-control" />
-                            <span asp-validation-for="Password" class="text-danger"></span>
-                        </div>
-                        <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <div class="container">
         <main role="main" class="pb-3">

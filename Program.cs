@@ -40,6 +40,7 @@ namespace EduPlatform
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllerRoute(
@@ -49,6 +50,7 @@ namespace EduPlatform
             using (var scope = app.Services.CreateScope())
             {
                 var services = scope.ServiceProvider;
+
                 try
                 {
                     //var context = services.GetRequiredService<ContextFactory>();

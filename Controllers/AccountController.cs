@@ -1,5 +1,6 @@
 ﻿using EduPlatform.Contexts;
 using EduPlatform.Models;
+using EduPlatform.Utils;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,8 @@ namespace EduPlatform.Controllers
         [HttpGet("Account/register")]
         public ActionResult Register()
         {
-            return PartialView();
+            Utilite.SetViewBag(this);
+            return View();
         }
 
         [HttpGet("Account/login")]
@@ -36,12 +38,12 @@ namespace EduPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                UserModel user = new UserModel { login = model.Email, email = model.Email, password = model.Password };
+                UserModel user = new UserModel { login = model.Email, UserName = model.UserName, Email = model.Email, password = model.Password };
                 IdentityResult result = await _userManager.CreateAsync(user, model.Password);
 
-                if (result.Succeeded)
+                if (result.Succeeded && (await _userManager.AddToRoleAsync(user, "Student")).Succeeded)
                 {
-                    return RedirectToAction("Privacy", "Home");
+                    return RedirectToAction("Index", "Student");
                 }
 
                 foreach (var error in result.Errors)
@@ -49,7 +51,7 @@ namespace EduPlatform.Controllers
                     ModelState.AddModelError(string.Empty, error.Description);
                 }
             }
-
+            Utilite.SetViewBag(this);
             return View(model);
         }
 
@@ -59,23 +61,32 @@ namespace EduPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                var result = await _signInManager.PasswordSignInAsync(
-                    model.Email,
-                    model.Password,
-                    false,
-                    false);
-
-                if (result.Succeeded)
+                // Найти пользователя по email
+                var user = await _userManager.FindByEmailAsync(model.Email);
+                if (user != null)
                 {
-                    TempData["IsLoggedIn"] = true;
-                    return RedirectToAction("Privacy", "Home");
+                    var result = await _signInManager.PasswordSignInAsync(
+                        user.UserName,
+                        model.Password,
+                        false,
+                        false);
+
+                    if (result.Succeeded)
+                    {
+                        TempData["IsLoggedIn"] = true;
+                        return RedirectToAction("Index", "Student");
+                    }
+                    else
+                    {
+                        ModelState.AddModelError("", "Неверный логин или пароль!");
+                    }
                 }
                 else
                 {
-                    ModelState.AddModelError("", "Неверный логин или пароль!");
+                    ModelState.AddModelError("", "Пользователь не найден!");
                 }
             }
-
+            Utilite.SetViewBag(this);
             return View(model);
         }
     }

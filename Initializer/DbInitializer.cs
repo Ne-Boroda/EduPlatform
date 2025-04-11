@@ -8,7 +8,11 @@ namespace EduPlatform.Initializer
     {
         public static async Task InitializeAsync(AccountDbContext dbContext, UserManager<UserModel> userManager, RoleManager<IdentityRole> roleManager)
         {
+            await roleManager.CreateAsync(new IdentityRole("Guest"));
             await roleManager.CreateAsync(new IdentityRole("Admin"));
+            await roleManager.CreateAsync(new IdentityRole("Student"));
+            await roleManager.CreateAsync(new IdentityRole("Teacher"));
+            await roleManager.CreateAsync(new IdentityRole("Moderator"));
             dbContext.SaveChanges();
 
             string login = "admin";
@@ -17,7 +21,7 @@ namespace EduPlatform.Initializer
             {
                 UserModel admin = new UserModel
                 {
-                    email = login,
+                    UserName = login,
                     password = password
                 };
                 IdentityResult result = await userManager.CreateAsync(admin, password);

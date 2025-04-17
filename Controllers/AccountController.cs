@@ -61,7 +61,6 @@ namespace EduPlatform.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Найти пользователя по email
                 var user = await _userManager.FindByEmailAsync(model.Email);
                 if (user != null)
                 {
@@ -89,5 +88,12 @@ namespace EduPlatform.Controllers
             Utilite.SetViewBag(this);
             return View(model);
         }
+
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            Utilite.SetViewBag(this);
+            return RedirectToAction("Index", "Home");
+        }
     }
-}
+}   

@@ -20,3 +20,137 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+:root {
+    --bs-dark: #121212;
+    --bs-gold: #dcae50;
+    --bs-gold-dark: #D4AF37;
+    --bs-gold-darker: #B8860B;
+}
+
+body {
+    background-color: var(--bs-dark);
+    color: #f8f9fa;
+}
+
+.navbar {
+    background-color: var(--bs-dark) !important;
+    border-bottom: 1px solid var(--bs-gold-dark) !important;
+}
+
+.navbar-brand, .nav-link {
+    color: var(--bs-gold) !important;
+}
+
+    .nav-link:hover {
+        color: var(--bs-gold-dark) !important;
+    }
+
+/* Кнопка Регистрация (с обводкой) */
+.btn-outline-primary {
+    color: var(--bs-gold);
+    border-color: var(--bs-gold);
+    background-color: transparent;
+}
+
+    .btn-outline-primary:hover,
+    .btn-outline-primary:focus,
+    .btn-outline-primary:active {
+        background-color: var(--bs-gold) !important;
+        border-color: var(--bs-gold) !important;
+        color: var(--bs-dark) !important;
+        box-shadow: none !important;
+    }
+
+/* Кнопка Войти (залитая) */
+.btn-primary {
+    background-color: var(--bs-gold) !important;
+    border-color: var(--bs-gold) !important;
+    color: var(--bs-dark) !important;
+}
+
+    .btn-primary:hover,
+    .btn-primary:focus,
+    .btn-primary:active {
+        background-color: var(--bs-gold-darker) !important;
+        border-color: var(--bs-gold-darker) !important;
+        color: var(--bs-dark) !important;
+        box-shadow: none !important;
+    }
+
+.modal-content {
+    background-color: var(--bs-dark);
+    border: 1px solid var(--bs-gold-dark);
+}
+
+.modal-header {
+    border-bottom: 1px solid var(--bs-gold-dark);
+}
+
+.modal-title {
+    color: var(--bs-gold);
+}
+
+.btn-close {
+    filter: invert(1);
+}
+
+.form-control, .form-control:focus {
+    background-color: #1e1e1e;
+    border-color: var(--bs-gold-dark);
+    color: white;
+}
+
+.form-label {
+    color: var(--bs-gold);
+}
+
+footer {
+    background-color: var(--bs-dark) !important;
+    border-top: 1px solid var(--bs-gold-dark) !important;
+}
+
+    footer a {
+        color: var(--bs-gold) !important;
+    }
+
+/* Переопределение стандартных цветов Bootstrap */
+.btn-check:focus + .btn, .btn:focus {
+    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+}
+
+.form-control,
+.form-control:focus,
+.form-control:active,
+.form-control:hover {
+    background-color: #1e1e1e !important;
+    border-color: var(--bs-gold-dark) !important;
+    color: #fff !important;
+    box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
+}
+
+    /* Стили для плейсхолдера */
+    .form-control::placeholder {
+        color: #666 !important;
+        opacity: 1;
+    }
+
+    /* Стили для автозаполнения */
+    .form-control:-webkit-autofill,
+    .form-control:-webkit-autofill:hover,
+    .form-control:-webkit-autofill:focus {
+        -webkit-text-fill-color: #fff !important;
+        -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+        transition: background-color 5000s ease-in-out 0s;
+    }

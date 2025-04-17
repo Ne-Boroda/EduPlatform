@@ -27,34 +27,19 @@ namespace EduPlatform.Controllers
                 {
                     return RedirectToAction("Index", "Admin");
                 }
-                if (HttpContext.User.IsInRole("Client"))
+                if (HttpContext.User.IsInRole("Student"))
                 {
-                    return RedirectToAction("Index", "Client");
+                    return RedirectToAction("Index", "Student");
                 }
-                if (HttpContext.User.IsInRole("Trainer"))
+                if (HttpContext.User.IsInRole("Teacher"))
                 {
-                    return RedirectToAction("Index", "Trainer");
+                    return RedirectToAction("Index", "Teacher");
                 }
-                if (HttpContext.User.IsInRole("Director"))
+                if (HttpContext.User.IsInRole("Moderator"))
                 {
-                    return RedirectToAction("Index", "Director");
+                    return RedirectToAction("Index", "Moderator");
                 }
-                // Guest.
             }
-            return View();
-        }
-
-        [HttpGet("Home/register")]
-        public ActionResult Register()
-        {
-            Utilite.SetViewBag(this);
-            return View();
-        }
-
-        [HttpGet("Home/login")]
-        public IActionResult Login()
-        {
-            Utilite.SetViewBag(this);
             return View();
         }
 

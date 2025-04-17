@@ -14,7 +14,6 @@ namespace EduPlatform.Utils
             if (controller.HttpContext != null && controller.HttpContext.User != null && controller.HttpContext.User.Identity != null)
             {
                 bool isSign = controller.HttpContext.User.Identity.IsAuthenticated;
-                // Флаг авторизации.
                 controller.ViewBag.IsSign = isSign;
 
                 if (isSign)
@@ -22,7 +21,7 @@ namespace EduPlatform.Utils
                     var db = new ContextFactory().CreateDbContext(new string[] { });
                     var roles = db.Roles;
                     var userId = controller.HttpContext.User.Identity.GetUserId();
-                    var roleId = db.UserRoles // Id роли.
+                    var roleId = db.UserRoles
                         .Where(r => r.UserId == userId)
                         .Select(uu => uu.RoleId).First();
 

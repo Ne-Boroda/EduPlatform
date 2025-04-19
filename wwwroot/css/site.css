@@ -140,17 +140,21 @@ footer {
     box-shadow: 0 0 0 0.25rem rgba(255, 215, 0, 0.25) !important;
 }
 
-    /* Стили для плейсхолдера */
-    .form-control::placeholder {
-        color: #666 !important;
-        opacity: 1;
-    }
+/* Стили для плейсхолдера */
+.form-control::placeholder {
+color: #666 !important;
+opacity: 1;
+}
 
-    /* Стили для автозаполнения */
-    .form-control:-webkit-autofill,
-    .form-control:-webkit-autofill:hover,
-    .form-control:-webkit-autofill:focus {
-        -webkit-text-fill-color: #fff !important;
-        -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
-        transition: background-color 5000s ease-in-out 0s;
-    }
+/* Стили для автозаполнения */
+.form-control:-webkit-autofill,
+.form-control:-webkit-autofill:hover,
+.form-control:-webkit-autofill:focus {
+    -webkit-text-fill-color: #fff !important;
+    -webkit-box-shadow: 0 0 0 1000px #1e1e1e inset !important;
+    transition: background-color 5000s ease-in-out 0s;
+}
+
+.card-body {
+    background-color: #121212;
+}

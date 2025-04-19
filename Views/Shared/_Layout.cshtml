@@ -62,6 +62,31 @@
                                 </div>
                             </div>
 
+                            <script>
+                                function loadRegisterModal() {
+                                    $.get('@Url.Action("Register", "Account")', function (data) {
+                                        $('#registerModal .modal-body').html(data);
+                                        $('#registerModal').modal('show');
+                                    }).fail(function () {
+                                        alert("Ошибка загрузки формы регистрации.");
+                                    });
+                                }
+
+                                    $(document).on('submit', '#registerForm', function (event) {
+                                    event.preventDefault();
+                                    $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                                        if (response.success) {
+
+                                            $('#registerModal').modal('hide');
+                                            location.href = '/Student/Index';
+                                        } else {
+
+                                            $('#registerModal .modal-body').html(response);
+                                        }
+                                    });
+                                });
+                            </script>
+
                             <!-- Login -->
                             <button type="button" class="btn btn-primary" onclick="loadLoginModal()">
                                 Войти
@@ -81,14 +106,44 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <script>
+                                function loadLoginModal() {
+                                    $.get('@Url.Action("Login", "Account")', function (data) {
+                                        $('#loginModal .modal-body').html(data);
+                                        $('#loginModal').modal('show');
+                                    }).fail(function () {
+                                        alert("Ошибка загрузки формы входа.");
+                                    });
+                                }
+
+                                    $(document).on('submit', '#loginForm', function (event) {
+                                    event.preventDefault();
+                                    $.post($(this).attr('action'), $(this).serialize(), function (response) {
+                                        if (response.success) {
+
+                                            $('#loginModal').modal('hide');
+                                            location.href = '/Student/Index';
+                                        } else {
+
+                                            $('#loginModal .modal-body').html(response);
+                                        }
+                                    });
+                                });
+                            </script>
                         }
                         else
                         {
                             @if (User.IsInRole("Student"))
                             {
-                                <!-- Справочник ролей button -->
-                                <a class="btn btn-outline-dark me-2" asp-area="" asp-controller="Student" asp-action="Index">Найти курс</a>
-                                <a class="btn btn-outline-dark me-2" asp-area="" asp-controller="Student" asp-action="Index">Мои курсы</a>
+                                <form asp-area="" asp-controller="Student" asp-action="AllCourses" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-primary me-2">Найти курс</button>
+                                </form>
+                                <form asp-area="" asp-controller="Student" asp-action="MyCourses" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-primary me-2">Мои курсы</button>
+                                </form>
                             }
                             <!-- Exit from account -->
                             <form asp-area="" asp-controller="Account" asp-action="Logout" method="post">

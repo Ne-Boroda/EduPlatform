@@ -1,0 +1,38 @@
+﻿@using BLL_Education.DTO
+@model List<CourseDTO>
+
+@{
+    ViewData["Title"] = "Мои курсы";
+}
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Any())
+{
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">@item.Title</h5>
+                        <p class="card-text">@item.Description</p>
+                        <p class="card-duration">@item.duration мин.</p>
+                        <div class="text-muted small">
+                            <div>Дата создания: @item.CreatedDate.ToString("d")</div>
+                        </div>
+                        <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id"
+                           class="btn btn-primary mt-3">
+                            Перейти к курсу
+                        </a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <div class="alert alert-info">
+        Вы пока не подписаны ни на один курс.
+    </div>
+}

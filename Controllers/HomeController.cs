@@ -1,4 +1,7 @@
 using System.Diagnostics;
+using AutoMapper;
+using BLL_Education.Profiles;
+using BLL_Education.Services;
 using EduPlatform.Models;
 using EduPlatform.Utils;
 using Microsoft.AspNetCore.Identity;
@@ -8,6 +11,9 @@ namespace EduPlatform.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly CourseService courseService;
+        private readonly EnrollmentService enrollmentService;
+
         private readonly UserManager<UserModel> _userManager;
         private readonly SignInManager<UserModel> _signInManager;
 
@@ -16,10 +22,21 @@ namespace EduPlatform.Controllers
         {
             _userManager = userManager;
             _signInManager = signInManager;
+
+            var mapper = new MapperConfiguration(cfg =>
+            {
+                cfg.AddProfile(new CourseProfile());
+                cfg.AddProfile(new EnrollmentProfile());
+            }).CreateMapper();
+
+            courseService = new CourseService(mapper);
+            enrollmentService = new EnrollmentService(mapper);
         }
 
         public ActionResult Index()
         {
+            var courses = courseService.GetAll();
+
             Utilite.SetViewBag(this);
             if (HttpContext != null && HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
@@ -29,7 +46,7 @@ namespace EduPlatform.Controllers
                 }
                 if (HttpContext.User.IsInRole("Student"))
                 {
-                    return RedirectToAction("Index", "Student");
+                    return View(courses);
                 }
                 if (HttpContext.User.IsInRole("Teacher"))
                 {
@@ -40,7 +57,7 @@ namespace EduPlatform.Controllers
                     return RedirectToAction("Index", "Moderator");
                 }
             }
-            return View();
+            return View(courses);
         }
 
         public IActionResult Privacy()

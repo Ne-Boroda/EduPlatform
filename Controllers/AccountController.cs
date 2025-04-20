@@ -73,7 +73,7 @@ namespace EduPlatform.Controllers
                     if (result.Succeeded)
                     {
                         TempData["IsLoggedIn"] = true;
-                        return RedirectToAction("Index", "Student");
+                        return RedirectToAction("Index", "Home");
                     }
                     else
                     {

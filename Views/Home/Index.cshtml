@@ -1,8 +1,34 @@
-﻿@{
+﻿@using BLL_Education.DTO
+@model List<CourseDTO>
+
+@{
     ViewData["Title"] = "Education Platform";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to EP</h1>
-    <p><a>This is a place, where you can totally change your life!</a>.</p>
+    <p class="text-left"><a>This is a place, where you can totally change your life!</a>.</p>
+</div>
+
+<div class="row">
+    @foreach (var item in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">@item.Title</h5>
+                    <p class="card-text">@item.Description</p>
+                    <p class="card-duration">@item.duration мин.</p>
+                    <div class="text-muted small">
+                        <div>Дата создания: @item.CreatedDate.ToString("d")</div>
+                        <div>Цена курса: @item.price</div>
+                    </div>
+                    <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id"
+                       class="btn btn-primary mt-3">
+                        Перейти к курсу
+                    </a>
+                </div>
+            </div>
+        </div>
+    }
 </div>

@@ -1,0 +1,88 @@
+﻿@model CourseDetails;
+
+@{
+    ViewBag.Title = $"Детали курса: {Model.Title}";
+}
+
+<div class="course-details-container">
+    <div class="course-header">
+        <h1>@Model.Title</h1>
+        <div class="course-meta">
+            <span class="badge bg-primary">@Model.Category</span>
+            <span class="badge bg-secondary">@Model.Level</span>
+            <span class="badge bg-info">@Model.duration мин.</span>
+            <span class="badge bg-success">@Model.price.ToString("C")</span>
+        </div>
+    </div>
+
+    <div class="course-description mt-4">
+        <h3>Описание курса</h3>
+        <p>@Model.Description</p>
+    </div>
+
+    <hr class="my-5" /> <!-- Горизонтальная разделительная линия -->
+
+    <div class="course-lessons">
+        <h2>Уроки курса</h2>
+        
+        @if (Model.Lessons != null && Model.Lessons.Any())
+        {
+            <div class="lessons-list">
+                @foreach (var lesson in Model.Lessons)
+                {
+                    <div class="lesson-card card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">@lesson.Title</h5>
+                            <div class="lesson-meta text-muted small mb-2">
+                                <span>Дата: @lesson.LessonDateTime.ToString("dd.MM.yyyy HH:mm")</span>
+                                <span> | </span>
+                                <span>Длительность: @lesson.DurationMinutes мин.</span>
+                            </div>
+                            <p class="card-text">@lesson.Description</p>
+                            <a href="#" class="btn btn-outline-primary">Перейти к уроку</a>
+                        </div>
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                Пока нет доступных уроков для этого курса.
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .course-details-container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .course-header {
+        margin-bottom: 30px;
+    }
+    
+    .course-meta .badge {
+        margin-right: 8px;
+        font-size: 0.9rem;
+    }
+    
+    .course-description {
+        line-height: 1.6;
+    }
+    
+    .lessons-list {
+        margin-top: 20px;
+    }
+    
+    .lesson-card {
+        border-left: 4px solid #3498db;
+    }
+    
+    .lesson-meta span {
+        margin-right: 5px;
+    }
+</style>

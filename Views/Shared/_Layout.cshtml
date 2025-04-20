@@ -33,8 +33,58 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Главная</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Контакты</a>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="categoriesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Категории
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-multi-column" aria-labelledby="categoriesDropdown">
+                                <div class="row">
+                                    <!-- Программирование -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Программирование</h6>
+                                        <a class="dropdown-item" href="/Courses/Programming/Python">Python</a>
+                                        <a class="dropdown-item" href="/Courses/Programming/JavaScript">JavaScript</a>
+                                        <a class="dropdown-item" href="/Courses/Programming/CSharp">C#</a>
+                                    </div>
+                                    <!-- Дизайн -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Дизайн</h6>
+                                        <a class="dropdown-item" href="/Courses/Design/Web">Веб-дизайн</a>
+                                        <a class="dropdown-item" href="/Courses/Design/UIUX">UI/UX</a>
+                                        <a class="dropdown-item" href="/Courses/Design/Graphic">Графический дизайн</a>
+                                    </div>
+                                    <!-- Аналитика данных -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Аналитика данных</h6>
+                                        <a class="dropdown-item" href="/Courses/DataScience/Python">Data Science</a>
+                                        <a class="dropdown-item" href="/Courses/DataScience/SQL">SQL</a>
+                                        <a class="dropdown-item" href="/Courses/DataScience/BI">Business Intelligence</a>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <!-- Маркетинг -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Маркетинг</h6>
+                                        <a class="dropdown-item" href="/Courses/Marketing/Digital">Цифровой маркетинг</a>
+                                        <a class="dropdown-item" href="/Courses/Marketing/SMM">SMM</a>
+                                        <a class="dropdown-item" href="/Courses/Marketing/SEO">SEO</a>
+                                    </div>
+                                    <!-- Бизнес -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Бизнес</h6>
+                                        <a class="dropdown-item" href="/Courses/Business/Management">Менеджмент</a>
+                                        <a class="dropdown-item" href="/Courses/Business/Finance">Финансы</a>
+                                        <a class="dropdown-item" href="/Courses/Business/Startup">Стартапы</a>
+                                    </div>
+                                    <!-- Языки -->
+                                    <div class="col-md-4">
+                                        <h6 class="dropdown-header">Языки</h6>
+                                        <a class="dropdown-item" href="/Courses/Languages/English">Английский</a>
+                                        <a class="dropdown-item" href="/Courses/Languages/Spanish">Испанский</a>
+                                        <a class="dropdown-item" href="/Courses/Languages/Chinese">Китайский</a>
+                                    </div>
+                                </div>
+                            </div>
                         </li>
                     </ul>
 
@@ -136,10 +186,6 @@
                         {
                             @if (User.IsInRole("Student"))
                             {
-                                <form asp-area="" asp-controller="Student" asp-action="AllCourses" method="post">
-                                    @Html.AntiForgeryToken()
-                                    <button type="submit" class="btn btn-outline-primary me-2">Найти курс</button>
-                                </form>
                                 <form asp-area="" asp-controller="Student" asp-action="MyCourses" method="post">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-outline-primary me-2">Мои курсы</button>

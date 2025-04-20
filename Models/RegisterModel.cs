@@ -14,11 +14,5 @@ namespace EduPlatform.Models
         [Required]
         [DataType(DataType.Password)]
         public string Password { get; set; }
-
-        [Required]
-        public bool isStudent { get; set; }
-
-        [Required]
-        public bool isTeacher {  get; set; }
     }
 }

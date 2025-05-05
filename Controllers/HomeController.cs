@@ -1,5 +1,7 @@
 using System.Diagnostics;
+using System.Security.Claims;
 using AutoMapper;
+using BLL_Education.DTO;
 using BLL_Education.Profiles;
 using BLL_Education.Services;
 using EduPlatform.Models;
@@ -37,6 +39,7 @@ namespace EduPlatform.Controllers
         {
             var courses = courseService.GetAll();
 
+
             Utilite.SetViewBag(this);
             if (HttpContext != null && HttpContext.User != null && HttpContext.User.Identity != null && HttpContext.User.Identity.IsAuthenticated)
             {
@@ -44,13 +47,24 @@ namespace EduPlatform.Controllers
                 {
                     return RedirectToAction("Index", "Admin");
                 }
-                if (HttpContext.User.IsInRole("Student"))
+                if (HttpContext.User.IsInRole("Student") || HttpContext.User.IsInRole("Teacher"))
                 {
-                    return View(courses);
-                }
-                if (HttpContext.User.IsInRole("Teacher"))
-                {
-                    return RedirectToAction("Index", "Teacher");
+                    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                    try
+                    {
+                        var userEnrollments = enrollmentService.GetAllForStudent(userId);
+
+                        var enrolledCourseIds = userEnrollments?.Select(e => e.CourseId).Where(id => id > 0).ToList() ?? new List<int>();
+
+                        var availableCourses = courses.Where(c => !enrolledCourseIds.Contains(c.Id)).ToList();
+
+                        return View(availableCourses);
+                    }
+                    catch (Exception ex)
+                    {
+                        return View("Error");
+                    }
                 }
                 if (HttpContext.User.IsInRole("Moderator"))
                 {

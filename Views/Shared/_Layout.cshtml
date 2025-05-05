@@ -128,7 +128,7 @@
                                         if (response.success) {
 
                                             $('#registerModal').modal('hide');
-                                            location.href = '/Student/Index';
+                                            location.href = '/Student/Profile';
                                         } else {
 
                                             $('#registerModal .modal-body').html(response);
@@ -173,7 +173,7 @@
                                         if (response.success) {
 
                                             $('#loginModal').modal('hide');
-                                            location.href = '/Student/Index';
+                                            location.href = '/Student/Profile';
                                         } else {
 
                                             $('#loginModal .modal-body').html(response);
@@ -189,6 +189,10 @@
                                 <form asp-area="" asp-controller="Student" asp-action="MyCourses" method="post">
                                     @Html.AntiForgeryToken()
                                     <button type="submit" class="btn btn-outline-primary me-2">Мои курсы</button>
+                                </form>
+                                <form asp-area="" asp-controller="Student" asp-action="Profile" method="post">
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-outline-primary me-2">Личный кабинет</button>
                                 </form>
                             }
                             <!-- Exit from account -->

@@ -1,0 +1,91 @@
+﻿@model StudentProfileModel
+
+@{
+    ViewData["Title"] = "Личный профиль студента";
+}
+
+<div class="container mt-4">
+    <h1 class="mb-4">Личный профиль студента</h1>
+
+    <!-- Информация о студенте -->
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Информация о студенте</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Имя:</strong> @Model.Name</p>
+            <p><strong>Электронная почта:</strong> @Model.Email</p>
+        </div>
+    </div>
+
+    <!-- Записанные курсы -->
+    @* <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Зачисленные курсы</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Название курса</th>
+                        <th>Преподаватель</th>
+                        <th>Дата начала</th>
+                        <th>Прогресс</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Математический анализ</td>
+                        <td>Проф. Алексеев</td>
+                        <td>1 марта 2023</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar bg-success" role="progressbar" style="width: 75%" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">75%</div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Основы программирования</td>
+                        <td>Д-р Смирнова</td>
+                        <td>10 февраля 2023</td>
+                        <td>
+                            <div class="progress">
+                                <div class="progress-bar bg-info" role="progressbar" style="width: 50%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">50%</div>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> *@
+
+    <!-- Оценки -->
+    @* <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Оценки</h5>
+        </div>
+        <div class="card-body">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Курс</th>
+                        <th>Оценка</th>
+                        <th>Дата сдачи</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Математический анализ</td>
+                        <td>Отлично</td>
+                        <td>15 апреля 2023</td>
+                    </tr>
+                    <tr>
+                        <td>Основы программирования</td>
+                        <td>Хорошо</td>
+                        <td>10 апреля 2023</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> *@
+</div>

@@ -214,3 +214,21 @@ opacity: 1;
             margin-bottom: 1rem;
         }
 }
+
+/* Профиль студента */
+.container mt-4 {
+    color: var(--bs-gold-dark);
+}
+
+.card-header {
+    background-color: var(--bs-dark);
+    color: whitesmoke;
+}
+
+td, .table {
+    color: var(--bs-gold-dark);
+}
+
+td {
+    color: var(--bs-gold-darker);
+}

@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "Страница оплаты";
+}
+
+<div class="payment-container">
+    <div class="cards-row">
+        <!-- Лицевая сторона -->
+        <div class="card front">
+            <div class="card-logo">VISA</div>
+            <div class="card-number">
+                <input type="text" id="cardNumber" placeholder="0000 0000 0000 0000" maxlength="19">
+            </div>
+            <div class="card-info">
+                <div class="card-holder">
+                    <label>Держатель карты</label>
+                    <input type="text" id="cardName" placeholder="IVAN IVANOV">
+                </div>
+                <div class="card-expiry">
+                    <label>Срок действия</label>
+                    <input type="text" id="cardExpiry" placeholder="ММ/ГГ" maxlength="5">
+                </div>
+            </div>
+        </div>
+
+        <!-- Обратная сторона -->
+        <div class="card back">
+            <div class="magnetic-stripe"></div>
+            <div class="cvv-container">
+                <label>CVV</label>
+                <input type="password" id="cardCvv" placeholder="123" maxlength="3">
+            </div>
+        </div>
+    </div>
+
+    <button id="payButton" class="pay-button" disabled>Оплатить</button>
+
+    <div class="access-info">
+        <p>Курс будет доступен в течение 60 дней с момента покупки</p>
+    </div>
+</div>
+
+<style>
+    .payment-container {
+        max-width: 800px;
+        margin: 2rem auto;
+        padding: 20px;
+    }
+
+    .cards-row {
+        display: flex;
+        gap: 30px;
+        margin-bottom: 2rem;
+    }
+
+    .card {
+        position: relative;
+        width: 450px;
+        height: 240px;
+        border-radius: 15px;
+        background: linear-gradient(145deg, #ffd700 0%, #daa520 30%, #b8860b 70%, #8b6914 100%);
+        box-shadow: 0 8px 32px rgba(218, 165, 32, 0.3);
+        padding: 20px;
+        color: #2a2a2a;
+    }
+
+    .magnetic-stripe {
+        height: 40px;
+        background: #2a2a2a;
+        margin: -20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+    .cvv-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        margin-top: 30px;
+    }
+
+        .cvv-container input {
+            width: 80px;
+            padding: 8px;
+            text-align: center;
+        }
+
+    /* Общие стили для обеих сторон */
+    .card-logo {
+        font-size: 24px;
+        font-weight: bold;
+        align-self: flex-end;
+        text-shadow: 1px 1px 2px rgba(255,215,0,0.5);
+    }
+
+    .card-number input {
+        background: none;
+        border: none;
+        color: #2a2a2a;
+        font-size: 24px;
+        letter-spacing: 2px;
+        width: 100%;
+    }
+
+    .card-info {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 20px;
+    }
+
+    .card-holder, .card-expiry {
+        flex: 1;
+    }
+
+    
+    input {
+        background: rgba(0,0,0,0.15);
+        border: 1px solid rgba(255,215,0,0.5);
+        border-radius: 4px;
+        padding: 8px;
+        color: #2a2a2a;
+        margin-top: 5px;
+        width: 100%;
+    }
+
+        input::placeholder {
+            color: rgba(0,0,0,0.4);
+        }
+
+    .pay-button {
+        width: 100%;
+        padding: 15px;
+        background: linear-gradient(145deg, #daa520, #b8860b);
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 18px;
+        box-shadow: 0 4px 15px rgba(218, 165, 32, 0.3);
+    }
+
+        .pay-button:disabled {
+            background: #808080;
+            cursor: not-allowed;
+        }
+
+    @@media (max-width: 768px) {
+        .cards-row {
+            flex-direction: column;
+        }
+
+        .card {
+            width: 100%;
+        }
+    }
+
+    .access-info {
+        margin-top: 20px;
+        text-align: center;
+        color: #666;
+        font-size: 14px;
+        padding: 10px;
+        background: rgba(255,255,255,0.1);
+        border-radius: 5px;
+    }
+
+        .access-info p {
+            margin: 0;
+        }
+</style>
+
+<script>
+    // Маска для номера карты
+    document.getElementById('cardNumber').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\s/g, '').replace(/\D/g, '');
+        value = value.match(/.{1,4}/g);
+        e.target.value = value ? value.join(' ') : '';
+        checkForm();
+    });
+
+    // Маска для держателя карты
+        document.getElementById('cardName').addEventListener('input', function(e) {
+        
+        const start = this.selectionStart;
+        const end = this.selectionEnd;
+
+        let value = this.value
+            .toUpperCase()
+            .replace(/[^A-Z\s]/g, '')
+            .replace(/\s{2,}/g, ' ');
+
+        this.value = value;
+
+        this.setSelectionRange(start, end);
+
+        checkForm();
+    });
+
+    // Маска для срока действия
+    document.getElementById('cardExpiry').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, '');
+        if (value.length >= 2) {
+            value = value.slice(0, 2) + '/' + value.slice(2, 4);
+        }
+        e.target.value = value;
+        checkForm();
+    });
+
+    // Валидация CVV
+    document.getElementById('cardCvv').addEventListener('input', function(e) {
+        e.target.value = e.target.value.replace(/\D/g, '');
+        checkForm();
+    });
+
+    // Проверка заполнения всех полей
+    function checkForm() {
+        const inputs = [
+            document.getElementById('cardNumber').value.replace(/\s/g, ''),
+            document.getElementById('cardName').value.trim(),
+            document.getElementById('cardExpiry').value,
+            document.getElementById('cardCvv').value
+        ];
+
+        const isValid = inputs.every(input => input.length >=
+            (input === inputs[0] ? 16 :
+             input === inputs[1] ? 3 :
+             input === inputs[2] ? 5 : 3));
+
+        document.getElementById('payButton').disabled = !isValid;
+    }
+</script>

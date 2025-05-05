@@ -72,8 +72,16 @@ namespace EduPlatform.Controllers
 
                     if (result.Succeeded)
                     {
-                        TempData["IsLoggedIn"] = true;
-                        return RedirectToAction("Index", "Home");
+                        if (model.isTeacher && await _userManager.IsInRoleAsync(user, "Teacher"))
+                        {
+                            TempData["IsLoggedIn"] = true;
+                            return RedirectToAction("Index", "Home");
+                        }
+                        else
+                        {
+                            TempData["IsLoggedIn"] = true;
+                            return RedirectToAction("Index", "Home");
+                        }
                     }
                     else
                     {

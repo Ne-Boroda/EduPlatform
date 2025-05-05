@@ -2,6 +2,8 @@
 using BLL_Education.DTO;
 using BLL_Education.Profiles;
 using BLL_Education.Services;
+using EduPlatform.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +13,15 @@ namespace EduPlatform.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly UserManager<UserModel> _userManager;
+
         private readonly CourseService courseService;
         private readonly EnrollmentService enrollmentService;
 
-        public StudentController()
+        public StudentController(UserManager<UserModel> userManager)
         {
+            _userManager = userManager;
+
             var mapper = new MapperConfiguration(cfg =>
             {
                 cfg.AddProfile(new CourseProfile());
@@ -27,9 +33,22 @@ namespace EduPlatform.Controllers
         }
 
         // GET: StudentController
-        public ActionResult Index()
+        public async Task<ActionResult> ProfileAsync()
         {
-            return View();
+            var user = await _userManager.GetUserAsync(User);
+            if (user == null) return NotFound();
+
+            var studentId = user.Id;
+            var enrollments = enrollmentService.GetAllForStudent(studentId);
+            var courses = enrollments.Select(e => courseService.FindById(e.CourseId)).ToList();
+
+            var model = new StudentProfileModel
+            {
+                Name = user.UserName,
+                Email = user.Email
+            };
+
+            return View(model);
         }
 
         public ActionResult MyCourses()

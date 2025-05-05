@@ -21,11 +21,15 @@
                     <p class="card-duration">@item.duration мин.</p>
                     <div class="text-muted small">
                         <div>Дата создания: @item.CreatedDate.ToString("d")</div>
-                        <div>Цена курса: @item.price</div>
+                        <div>Цена курса: @item.price р.</div>
                     </div>
-                    <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id"
+                    <a asp-controller="Payment" asp-action="PayPage" asp-route-id="@item.Id"
                        class="btn btn-primary mt-3">
-                        Перейти к курсу
+                        Записаться на курс
+                    </a>
+                    <a asp-controller="Course" asp-action="Details" asp-route-id="@item.Id"
+                       class="btn btn-outline-primary mt-3">
+                        Подробнее
                     </a>
                 </div>
             </div>

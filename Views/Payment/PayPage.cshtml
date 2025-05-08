@@ -1,4 +1,6 @@
-﻿@{
+﻿@model int;
+
+@{
     ViewData["Title"] = "Страница оплаты";
 }
 
@@ -31,12 +33,11 @@
             </div>
         </div>
     </div>
-
-    <button id="payButton" class="pay-button" disabled>Оплатить</button>
-
-    <div class="access-info">
-        <p>Курс будет доступен в течение 60 дней с момента покупки</p>
-    </div>
+    <p>Course ID: @Model</p>
+    <form asp-area="" asp-controller="Payment" asp-action="Enroll" asp-route-id="@Model" method="post">
+        @Html.AntiForgeryToken()
+        <button type="submit" id="payButton" class="pay-button" disabled>Оплатить</button>
+    </form>
 </div>
 
 <style>

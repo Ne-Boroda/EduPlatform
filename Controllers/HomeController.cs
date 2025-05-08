@@ -20,7 +20,7 @@ namespace EduPlatform.Controllers
         private readonly SignInManager<UserModel> _signInManager;
 
         public HomeController(UserManager<UserModel> userManager,
-                                 SignInManager<UserModel> signInManager)
+                                    SignInManager<UserModel> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
